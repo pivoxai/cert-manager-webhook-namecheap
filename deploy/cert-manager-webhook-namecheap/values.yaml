@@ -9,13 +9,15 @@
 groupName: acme.namecheap.com
 
 certManager:
-  namespace: cert-manager
+  namespace: kube-system
   serviceAccountName: cert-manager
 
 image:
-  repository: kelvie/cert-manager-webhook-namecheap
+  repository: pivoxai/cert-manager-webhook-namecheap
   tag: latest
   pullPolicy: IfNotPresent
+
+imagePullSecrets: []
 
 nameOverride: ""
 fullnameOverride: ""

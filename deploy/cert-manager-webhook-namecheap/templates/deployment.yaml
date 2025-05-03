@@ -54,6 +54,10 @@ spec:
               readOnly: true
           resources:
             {{ toYaml .Values.resources | indent 12 }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml . | indent 0 }}
+      {{- end }}
       volumes:
         - name: certs
           secret:
