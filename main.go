@@ -17,7 +17,7 @@ import (
 	cmmeta "github.com/cert-manager/cert-manager/pkg/apis/meta/v1"
 	"github.com/cert-manager/cert-manager/pkg/issuer/acme/dns/util"
 
-	namecheap "github.com/namecheap/go-namecheap-sdk/v2/namecheap"
+	"github.com/namecheap/go-namecheap-sdk/v2/namecheap"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -197,7 +197,7 @@ func (c *namecheapDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) erro
 // provider accounts.
 // The stopCh can be used to handle early termination of the webhook, in cases
 // where a SIGTERM or similar signal is sent to the webhook process.
-func (c *namecheapDNSProviderSolver) Initialize(kubeClientConfig *rest.Config, stopCh <-chan struct{}) error {
+func (c *namecheapDNSProviderSolver) Initialize(kubeClientConfig *rest.Config, _stopCh <-chan struct{}) error {
 	cl, err := kubernetes.NewForConfig(kubeClientConfig)
 	if err != nil {
 		return err
@@ -297,7 +297,9 @@ func (c *namecheapDNSProviderSolver) parseChallenge(ch *v1alpha1.ChallengeReques
 ) {
 
 	if zone, err = util.FindZoneByFqdn(
-		ch.ResolvedFQDN, util.RecursiveNameservers,
+		c.ctx,
+		ch.ResolvedFQDN,
+		util.RecursiveNameservers,
 	); err != nil {
 		return "", "", err
 	}

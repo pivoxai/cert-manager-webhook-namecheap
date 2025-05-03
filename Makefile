@@ -2,14 +2,14 @@ OS ?= $(shell go env GOOS)
 ARCH ?= $(shell go env GOARCH)
 
 IMAGE_NAME := cert-manager-webhook-namecheap
-IMAGE_TAG := $(shell git describe --dirty)
-REPO_NAME := kelvie
+IMAGE_TAG := 1.0.0
+REPO_NAME := ghcr.io/pivoxai
 PLATFORMS := linux/amd64,linux/arm64
 DOCKER_OPTS :=
 
 OUT := $(shell pwd)/_out
 
-KUBEBUILDER_VERSION=2.3.2
+KUBEBUILDER_VERSION=4.5.2
 
 $(shell mkdir -p "$(OUT)")
 
